@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fillViewport="true">
+		<LinearLayout
+			android:id="@+id/layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:gravity="center">
+		</LinearLayout>
+	</ScrollView>
+
+	<!-- <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="25dp"
+
+                android:id="@+id/addWork"
+                android:onClick="addWork"
+                android:contentDescription="Ajouter un TP"
+                app:srcCompat="@drawable/emoji_u1f4dd"
+                app:tint="@null" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="25dp"
+                android:layout_above="@id/addWork"
+                android:layout_alignParentEnd="true"
+
+                android:id="@+id/addStudent"
+                android:contentDescription="Ajouter un·e étudiant·e"
+                android:onClick="addStudent"
+                app:srcCompat="@drawable/emoji_u1f9d1_200d_1f393"
+                app:tint="@null" />
+        </RelativeLayout>
+	</FrameLayout> -->
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:gravity="bottom">
+		<com.google.android.material.bottomnavigation.BottomNavigationView
+			android:id="@+id/bottom_navigation"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:menu="@menu/bottom_menu"
+			android:gravity="bottom"/>
+	</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

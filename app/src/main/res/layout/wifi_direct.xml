@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:gravity="right">
+		<com.google.android.material.switchmaterial.SwitchMaterial
+			android:id="@+id/wifiState"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:minHeight="48dp"
+			android:text="WiFi Direct"
+			android:layout_margin="5dp" />
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<Button
+			android:id="@+id/search"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:onClick="startSearch"
+			android:text="Rechercher"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentStart="true"
+			android:layout_margin="5dp" />
+	</RelativeLayout>
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:gravity="center">
+
+		<com.google.android.material.chip.ChipGroup
+			android:id="@+id/devices"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			app:singleSelection="true">
+		</com.google.android.material.chip.ChipGroup>
+		<ProgressBar
+			android:id="@+id/progressBar"
+			android:minHeight="128dp"
+			android:minWidth="128dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
