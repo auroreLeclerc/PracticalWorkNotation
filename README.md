@@ -1,7 +1,7 @@
 # PracticalWorkNotation
 Projet de Master 1 Informatique à l'UPJV
 
-## Les QR code sont au format 
+## Les QR codes sont au format 
 
 ```json
 {
