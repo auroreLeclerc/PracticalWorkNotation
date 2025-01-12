@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DebugSql extends AppCompatActivity {
-	private DatabaseHelper db = new DatabaseHelper(DebugSql.this);
+	private final DatabaseHelper db = new DatabaseHelper(DebugSql.this);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

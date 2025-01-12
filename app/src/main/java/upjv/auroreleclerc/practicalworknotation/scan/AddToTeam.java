@@ -19,7 +19,7 @@ import upjv.auroreleclerc.practicalworknotation.DatabaseHelper;
 import upjv.auroreleclerc.practicalworknotation.R;
 
 public class AddToTeam extends Scan {
-	private DatabaseHelper db = new DatabaseHelper(AddToTeam.this);
+	private final DatabaseHelper db = new DatabaseHelper(AddToTeam.this);
 	private String parentReader;
 	private String workName;
 	private TextView id;

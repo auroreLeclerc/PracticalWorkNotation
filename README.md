@@ -5,8 +5,8 @@ Projet de Master 1 Informatique à l'UPJV
 
 ```json
 {
-	name: "Nom de TP",
-	questions: [
+	"name": "Nom de TP",
+	"questions": [
 		"Question n°1",
 		"Question n°2",
 		"Question n°3",

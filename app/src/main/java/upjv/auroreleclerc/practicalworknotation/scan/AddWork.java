@@ -1,5 +1,6 @@
 package upjv.auroreleclerc.practicalworknotation.scan;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -31,7 +32,8 @@ public class AddWork extends Scan {
 
 		initialiseDetectorsAndSources(findViewById(R.id.surface_view), Barcode.QR_CODE);
 	}
-	@Override
+	@SuppressLint("SetTextI18n")
+    @Override
 	public void dataExtractionToView(String barcodeData, SurfaceView surfaceView) {
 		bodyView.post(() -> {
 			try {
@@ -40,11 +42,11 @@ public class AddWork extends Scan {
 				AddWork.this.questions = (JSONArray) decoder.get("questions");
 				nameView.setText(name);
 				questionsView.setText(questions.length() + " questions");
-				String prettyBody = "";
+				StringBuilder prettyBody = new StringBuilder();
 				for (int i = 0; i < questions.length(); i++) {
-					prettyBody += i+1 + ". " + questions.getString(i) + '\n';
+					prettyBody.append(i + 1).append(". ").append(questions.getString(i)).append('\n');
 				}
-				bodyView.setText(prettyBody);
+				bodyView.setText(prettyBody.toString());
 			} catch (JSONException e) {
 				nameView.setText("Invalid JSON format !!!");
 				bodyView.setText(e.toString());

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
-	private ArrayList<String[]> body;
+	private final ArrayList<String[]> body;
 
 	public MyPagerAdapter(@NonNull FragmentManager fm, ArrayList<String[]> body) {
 		super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -22,6 +22,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 		return this.body.get(position)[0];
 	}
 
+	@NonNull
 	@Override
 	public Fragment getItem(int position) {
 		return new MyFragment(this.body.get(position)[1]);

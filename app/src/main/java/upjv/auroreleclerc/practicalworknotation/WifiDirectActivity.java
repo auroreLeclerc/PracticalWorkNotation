@@ -2,21 +2,15 @@ package upjv.auroreleclerc.practicalworknotation;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.Formatter;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -25,13 +19,10 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.materialswitch.MaterialSwitch;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.List;
 
-import upjv.auroreleclerc.practicalworknotation.scan.WatchWork;
 
 public class WifiDirectActivity extends AppCompatActivity {
 	private final IntentFilter intentFilter = new IntentFilter();

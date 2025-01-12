@@ -12,6 +12,8 @@
 				android:title="SQL"/>
 			<item android:id="@+id/export"
 				android:title="DUMP"/>
+			<item android:id="@+id/python"
+				android:title="Python"/>
 		</menu>
 	</item>
 </menu>

@@ -2,6 +2,7 @@ package upjv.auroreleclerc.practicalworknotation;
 
 import static java.security.AccessController.getContext;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,8 +38,7 @@ import upjv.auroreleclerc.practicalworknotation.scan.AddWork;
 import upjv.auroreleclerc.practicalworknotation.scan.WatchWork;
 
 public class MainActivity extends AppCompatActivity {
-	private LinearLayout linearLayout;
-	private DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+    private final DatabaseHelper db = new DatabaseHelper(MainActivity.this);
 	private final int EXPORT_CODE = 204;
 	private final int CLIENT_EXPORT_CODE = 205;
 
@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
-	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+	@SuppressLint("NonConstantResourceId")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intention;
@@ -70,6 +71,22 @@ public class MainActivity extends AppCompatActivity {
 				intention.putExtra(Intent.EXTRA_TITLE, "export.csv");
 				intention.addCategory(Intent.CATEGORY_OPENABLE);
 				startActivityForResult(intention, CLIENT_EXPORT_CODE);
+				return true;
+			case R.id.python:
+				this.db.addStudent("666", "Lilith", "\uD83D\uDE08");
+				this.db.addStudent("999", "Ève", "\uD83C\uDF4E");
+				ArrayList<String> questions = new ArrayList<>();
+				questions.add("Variables");
+				questions.add("Conditions");
+				questions.add("Fonctions");
+				this.db.addWork("Les bases du Python", questions);
+				this.db.setTeam("666", "999", "Les bases du Python");
+				intention = new Intent(this, EditWork.class);
+				intention.putExtra("name", "Lucifer");
+				intention.putExtra("surname", "Morningstar");
+				intention.putExtra("reader", "666");
+				intention.putExtra("work_name", "Les bases du Python");
+				startActivity(intention);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -100,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 			StringBuilder csv = new StringBuilder();
 			for (ArrayList<String> line: dump) {
 				for (String element: line) {
-					csv.append(element + " ; ");
+					csv.append(element).append(" ; ");
 				}
 				csv.delete(csv.length() - 3, csv.length());
 				csv.append('\n');
@@ -118,11 +135,12 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	@Override
+	@SuppressLint({"SetTextI18n", "NonConstantResourceId"})
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		this.linearLayout = findViewById(R.id.layout);
+        LinearLayout linearLayout = findViewById(R.id.layout);
 		ArrayList<String> works = db.getWorksNames();
 		for (String work: works) {
 			MaterialButton button = new MaterialButton(this);

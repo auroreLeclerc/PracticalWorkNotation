@@ -31,8 +31,8 @@ import java.util.List;
 
 
 public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
-	private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
-	private WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
+	private final List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
+	private final WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
 		@Override
 		public void onPeersAvailable(WifiP2pDeviceList peerList) {
 			List<WifiP2pDevice> refreshedPeers = new ArrayList<>(peerList.getDeviceList());
@@ -51,7 +51,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 				// peers connected to the Wi-Fi P2P network.
 			}
 
-			if (peers.size() == 0) {
+			if (peers.isEmpty()) {
 				Toast.makeText(wifiDirectActivity, "No devices found", Toast.LENGTH_SHORT).show();
 			}
 		}

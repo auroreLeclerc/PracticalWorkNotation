@@ -2,7 +2,6 @@ package upjv.auroreleclerc.practicalworknotation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -17,9 +16,8 @@ import java.util.HashMap;
 import upjv.auroreleclerc.practicalworknotation.scan.AddToTeam;
 
 public class EditWork extends AppCompatActivity {
-	private DatabaseHelper db = new DatabaseHelper(EditWork.this);
-	private LinearLayout linearLayout;
-	private String workName;
+	private final DatabaseHelper db = new DatabaseHelper(EditWork.this);
+    private String workName;
 	private String reader;
 	private String name;
 	private String surname;
@@ -28,13 +26,13 @@ public class EditWork extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		HashMap<String, String[]> students = this.db.getStudents(this.group);
-		String title = "";
+		StringBuilder title = new StringBuilder();
 		for (String reader : students.keySet()) {
-			if (!title.isEmpty()) title += " ; ";
-			title += students.get(reader)[0] + " " + students.get(reader)[1];
+			if (title.length() > 0) title.append(" & ");
+			title.append(students.get(reader)[0]).append(" ").append(students.get(reader)[1]);
 		}
-		if (title.isEmpty()) title = this.name + " " + this.surname;
-		setTitle(title);
+		if (title.length() == 0) title = new StringBuilder(this.name + " " + this.surname);
+		setTitle(title.toString());
 		inflater.inflate(R.menu.group_menu, menu);
 		return true;
 	}
@@ -43,7 +41,7 @@ public class EditWork extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_work);
-		this.linearLayout = findViewById(R.id.layout);
+        LinearLayout linearLayout = findViewById(R.id.layout);
 
 		Intent intent = getIntent();
 		this.reader = intent.getStringExtra("reader");

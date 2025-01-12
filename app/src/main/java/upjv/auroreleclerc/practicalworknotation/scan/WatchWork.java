@@ -1,5 +1,6 @@
 package upjv.auroreleclerc.practicalworknotation.scan;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -17,9 +18,10 @@ import upjv.auroreleclerc.practicalworknotation.R;
 
 public class WatchWork extends Scan {
 	private String name;
-	private DatabaseHelper db = new DatabaseHelper(WatchWork.this);
+	private final DatabaseHelper db = new DatabaseHelper(WatchWork.this);
 
-	@Override
+	@SuppressLint("SetTextI18n")
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();

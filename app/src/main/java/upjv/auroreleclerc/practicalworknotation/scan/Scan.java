@@ -8,6 +8,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -22,7 +23,6 @@ abstract class Scan extends AppCompatActivity {
 
     // https://medium.com/analytics-vidhya/creating-a-barcode-scanner-using-android-studio-71cff11800a2
     private SurfaceView surfaceView;
-    private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private ToneGenerator toneGen1;
@@ -41,7 +41,7 @@ abstract class Scan extends AppCompatActivity {
 
         //Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
-        barcodeDetector = new BarcodeDetector.Builder(this)
+        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(format)
                 .build();
 
@@ -52,7 +52,7 @@ abstract class Scan extends AppCompatActivity {
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
-            public void surfaceCreated(SurfaceHolder holder) {
+            public void surfaceCreated(@NonNull SurfaceHolder holder) {
                 try {
                     if (ActivityCompat.checkSelfPermission(Scan.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
@@ -86,18 +86,14 @@ abstract class Scan extends AppCompatActivity {
             }
 
             @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
+            public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
                 if (barcodes.size() != 0) {
-                        if (barcodes.valueAt(0).email != null) {
-                            dataExtractionToView(barcodeData, surfaceView);
-                            barcodeData = barcodes.valueAt(0).email.address;
-                        } else {
-                            barcodeData = barcodes.valueAt(0).displayValue;
-
-                        }
-                        dataExtractionToView(barcodeData, surfaceView);
+                    barcodes.valueAt(0);
+                    dataExtractionToView(barcodeData, surfaceView);
+                    barcodeData = barcodes.valueAt(0).email.address;
+                    dataExtractionToView(barcodeData, surfaceView);
                         toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                 }
             }

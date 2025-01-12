@@ -20,7 +20,7 @@ public class AddStudent extends Scan {
 	private TextView name;
 	private TextView surname;
 	private Button add;
-	private DatabaseHelper db = new DatabaseHelper(AddStudent.this);
+	private final DatabaseHelper db = new DatabaseHelper(AddStudent.this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

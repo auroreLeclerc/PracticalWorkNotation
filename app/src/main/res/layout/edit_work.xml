@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,7 +12,7 @@
 		<LinearLayout
 			android:id="@+id/layout"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			android:gravity="center">
 		</LinearLayout>
@@ -23,7 +24,8 @@
 
 		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+            tools:ignore="UselessParent">
 
 			<com.google.android.material.floatingactionbutton.FloatingActionButton
 				android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
 				android:contentDescription="Ajouter un·e étudiant·e à un groupe"
 				android:onClick="addToGroup"
 				app:srcCompat="@drawable/emoji_u1f9d1_200d_1f91d_200d_1f9d1"
-				app:tint="@null" />
+				app:tint="@null"
+                tools:ignore="UsingOnClickInXml" />
 
 			<!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
 				android:layout_width="wrap_content"

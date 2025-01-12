@@ -30,8 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				"'surname' TEXT DEFAULT 'N/A', " +
 				"'team' INTEGER DEFAULT NULL REFERENCES teams(id));";
 		db.execSQL(query);
-		this.addStudent("666664", "Morningstar", "Lucifer", db);
-		this.addStudent("205222001815", "Leclerc", "Aurore", db);
 		query = "CREATE TABLE 'works' ('name' TEXT PRIMARY KEY NOT NULL);";
 		db.execSQL(query);
 		query = "CREATE TABLE 'questions' (" +
@@ -64,10 +62,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		void apply(Cursor cursor);
 	}
 
-	private SQLiteDatabase select(@Language("SQL") String sql, String[] selectionArgs, CursorFunction cursorFunction) {
-		return this.select(sql, selectionArgs, cursorFunction, false, null);
+	private void select(@Language("RoomSql") String sql, String[] selectionArgs, CursorFunction cursorFunction) {
+		this.select(sql, selectionArgs, cursorFunction, false, null);
 	}
-	private SQLiteDatabase select(@Language("SQL") String sql, String[] selectionArgs, CursorFunction cursorFunction, boolean keepAlive, SQLiteDatabase openedDb) {
+	private SQLiteDatabase select(@Language("RoomSql") String sql, String[] selectionArgs, CursorFunction cursorFunction, boolean keepAlive, SQLiteDatabase openedDb) {
 		SQLiteDatabase db = (openedDb == null) ? this.getWritableDatabase() : openedDb;
 		Cursor cursorCourses = db.rawQuery(
 				sql,
@@ -87,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		this.addWork(name, newQuestions);
 	}
+
 	public void addWork(String name, ArrayList<String> questions) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -100,19 +99,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db.insert("questions", null, values);
 			values.clear();
 		}
+		db.close();
 	}
 
-	private void addStudent(String reader, String name, String surname, SQLiteDatabase db) {
+	public void addStudent(String reader, String name, String surname) {
+		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("reader", reader);
 		values.put("name", name);
 		values.put("surname", surname);
 		db.insert("students", null, values);
-	}
-
-	public void addStudent(String reader, String name, String surname) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		this.addStudent(reader, name, surname, db);
 		db.close();
 	}
 
@@ -156,12 +152,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return student;
 	}
 
-	public int removeStudent(String reader) {
+	public void removeStudent(String reader) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		int removed = db.delete("student", "reader=?", new String[]{reader});
+		db.delete("student", "reader=?", new String[]{reader});
 		db.close();
-
-		return removed;
 	}
 
 	public HashMap<Integer, String> getQuestions(String workName) {
@@ -229,21 +223,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ArrayList<String[]> dumps = new ArrayList<>();
 		for (String name : names) {
-			String table = "";
+			StringBuilder table = new StringBuilder();
 			Cursor cursorCourses = db.rawQuery(
 					"SELECT * FROM " + name + " ;",
 					null);
 			if (cursorCourses.moveToFirst()) {
 				do {
 					for (int i = 0; i < cursorCourses.getColumnCount(); i++) {
-						if (table.length() != 0 && !table.endsWith("\n")) table += " ; ";
-						table += cursorCourses.getString(i);
+						if ((table.length() > 0) && !table.toString().endsWith("\n")) table.append(" ; ");
+						table.append(cursorCourses.getString(i));
 					}
-					table += '\n';
+					table.append('\n');
 				} while (cursorCourses.moveToNext());
 			}
 			cursorCourses.close();
-			dumps.add(new String[]{name, table});
+			dumps.add(new String[]{name, table.toString()});
 		}
 		db.close();
 
@@ -286,8 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 									"WHERE notation.student=? AND notation.question=?;",
 							new String[]{student.get(0), String.valueOf(question)}, add, true, db);
 				}
-				ArrayList<String> currentResult = new ArrayList<>();
-				currentResult.addAll(student);
+                ArrayList<String> currentResult = new ArrayList<>(student);
 				currentResult.add(work);
 				for (Integer question : questions.keySet()) {
 					currentResult.add(String.valueOf(questions.get(question)));
